@@ -1,6 +1,6 @@
-import { FactoryTodoItem } from "./create.js";
+import { CreateToDo } from "./create.js";
 
-const item1 = FactoryTodoItem(
+const item1 = CreateToDo(
   "Groceries",
   "Buy item 1, item 2, item 3",
   "11/22/21",
@@ -8,12 +8,12 @@ const item1 = FactoryTodoItem(
   false
 );
 
-const item2 = FactoryTodoItem(
+const item2 = CreateToDo(
   "workout",
   "3 sets of bicep, 3 sets of tricep",
   `${new Date()}`,
   "low",
-  "false"
+  false
 );
 
 const defaultList = [];
