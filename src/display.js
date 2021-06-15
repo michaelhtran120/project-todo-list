@@ -1,3 +1,24 @@
+import { format, addDays } from "date-fns";
+
+let defaultList = [
+  {
+    title: "Groceries",
+    description: "Buy item 1, item 2, item 3",
+    dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
+    priority: "high",
+    isCompleted: false,
+    project: "Shopping",
+  },
+  {
+    title: "Workout",
+    description: "3 sets of bicep, 3 sets of tricep",
+    dueDate: format(new Date(), "yyyy-MM-dd"),
+    priority: "medium",
+    isCompleted: true,
+    project: "None",
+  },
+];
+
 const displayTodo = (arr) => {
   arr.forEach((item) => {
     const todoContainer = document.querySelector("#todos-container");
@@ -55,11 +76,6 @@ const displayTodo = (arr) => {
       item.dueDate = itemDetailElements.itemDate.value;
       console.log(item);
     });
-
-    // itemSumElements.itemDueDate.addEventListener("change", () => {
-    //   console.log(itemSumElements.itemDueDate);
-    //   //   item.dueDate = itemSumElements.itemDate;
-    // });
   });
 };
 
@@ -102,6 +118,20 @@ const createSummaryElements = (item) => {
     item.title = itemTitle.innerText;
     console.log(item.title);
     console.log(item);
+  });
+
+  itemTitle.addEventListener("keydown", function (event) {
+    if (this.textContent.length === 15 && event.keyCode != 8) {
+      event.preventDefault();
+    }
+  });
+
+  itemCheckbox.addEventListener("change", () => {
+    if (itemCheckbox.checked === false) {
+      item.isCompleted = false;
+    } else {
+      item.isCompleted = true;
+    }
   });
 
   return {
@@ -175,6 +205,18 @@ const createDetailElements = (item) => {
   itemPriority.addEventListener("change", () => {
     item.priority = itemPriority.value;
   });
+
+  deleteBtn.addEventListener("click", () => {
+    console.log(`delete ${item.title}`);
+    console.log(defaultList.indexOf(item));
+    console.log(defaultList);
+    defaultList.splice(defaultList.indexOf(item), 1);
+    removeAllChildNodes(document.querySelector("#todos-container"));
+    displayTodo(defaultList);
+
+    document.querySelector("#right-container-title").textContent = "All Items";
+  });
+
   return {
     itemDetailContainer,
     itemDetailLeft,
@@ -195,4 +237,4 @@ function removeAllChildNodes(parent) {
   }
 }
 
-export { displayTodo, removeAllChildNodes };
+export { displayTodo, removeAllChildNodes, defaultList };

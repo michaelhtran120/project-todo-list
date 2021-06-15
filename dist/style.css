@@ -44,9 +44,17 @@ html {
   cursor: pointer;
 }
 
-#todos-container {
+#right-container {
   display: block;
   width: 80%;
+}
+#right-container-title {
+  margin-left: 1em;
+}
+
+#todos-container {
+  display: block;
+  width: 90%;
   padding: 0.5em 2em;
 }
 
@@ -65,6 +73,14 @@ html {
 
 .summary-left-side {
   display: flex;
+}
+
+.summary-left-side h3 {
+  min-width: 2em;
+}
+.summary-left-side h3:hover {
+  border: 1px solid turquoise;
+  border-radius: 5px;
 }
 
 .summary-left-side input {
@@ -118,13 +134,20 @@ html {
   width: 100%;
   border: none;
   border-radius: 5px;
-  background-color: red;
+  background-color: rgb(255, 95, 95);
   margin-right: 0.5em;
 }
 
 .todo-items-info p {
   margin-left: 1em;
   font-size: 15px;
+  min-width: 15px;
+  max-width: 75%;
+}
+
+.todo-items-info p:hover {
+  border: 1px solid turquoise;
+  border-radius: 5px;
 }
 
 .todo-items-info select {

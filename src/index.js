@@ -1,41 +1,43 @@
 import { CreateToDo } from "./create.js";
-import { displayTodo, removeAllChildNodes } from "./display.js";
+import { defaultList, displayTodo, removeAllChildNodes } from "./display.js";
 import { format, addDays } from "date-fns";
 
-let defaultList = [
-  {
-    title: "Groceries",
-    description: "Buy item 1, item 2, item 3",
-    dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
-    priority: "high",
-    isCompleted: false,
-    project: "Shopping",
-  },
-  {
-    title: "Workout",
-    description: "3 sets of bicep, 3 sets of tricep",
-    dueDate: format(new Date(), "yyyy-MM-dd"),
-    priority: "medium",
-    isCompleted: true,
-    project: "None",
-  },
-];
+// let defaultList = [
+//   {
+//     title: "Groceries",
+//     description: "Buy item 1, item 2, item 3",
+//     dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
+//     priority: "high",
+//     isCompleted: false,
+//     project: "Shopping",
+//   },
+//   {
+//     title: "Workout",
+//     description: "3 sets of bicep, 3 sets of tricep",
+//     dueDate: format(new Date(), "yyyy-MM-dd"),
+//     priority: "medium",
+//     isCompleted: true,
+//     project: "None",
+//   },
+// ];
 
 displayTodo(defaultList);
 
 const addItemBtn = document.querySelector("#add-todo-btn");
-const homeBtn = document.querySelector("#home-btn");
+const allBtn = document.querySelector("#all-btn");
 const todayBtn = document.querySelector("#today-btn");
 const tomorrowBtn = document.querySelector("#tomorrow-btn");
+const rightContainerTitle = document.querySelector("#right-container-title");
 
 const todayDate = format(new Date(), "yyyy-MM-dd");
 const tomorrowDate = format(addDays(new Date(), 1), "yyyy-MM-dd");
 
-homeBtn.addEventListener("click", () => {
+allBtn.addEventListener("click", () => {
   console.log("all items");
   removeAllChildNodes(document.querySelector("#todos-container"));
   displayTodo(defaultList);
   console.log(defaultList);
+  rightContainerTitle.innerText = allBtn.textContent;
 });
 
 todayBtn.addEventListener("click", () => {
@@ -46,6 +48,7 @@ todayBtn.addEventListener("click", () => {
   console.log(todayArray);
   removeAllChildNodes(document.querySelector("#todos-container"));
   displayTodo(todayArray);
+  rightContainerTitle.innerText = todayBtn.textContent;
 });
 
 tomorrowBtn.addEventListener("click", () => {
@@ -56,16 +59,8 @@ tomorrowBtn.addEventListener("click", () => {
   console.log(tomorrowArray);
   removeAllChildNodes(document.querySelector("#todos-container"));
   displayTodo(tomorrowArray);
+  rightContainerTitle.innerText = tomorrowBtn.textContent;
 });
-
-// thisWeekBtn.addEventListener("click", () => {
-//   console.log("this weeks's items");
-//   console.log(
-//     defaultList.filter(function (obj) {
-//       return obj.dueDate === todayDate;
-//     })
-//   );
-// });
 
 addItemBtn.addEventListener("click", () => {
   const newItem = CreateToDo();
@@ -74,24 +69,8 @@ addItemBtn.addEventListener("click", () => {
   removeAllChildNodes(document.querySelector("#todos-container"));
   displayTodo(defaultList);
   console.log(defaultList);
-
-  //   const deleteBtns = document.querySelectorAll(".delete-btn");
-
-  //   deleteBtnListener();
-  //   deleteBtns.forEach((btn) => {
-  //     btn.addEventListener("click", function () {
-  //       console.log("delete");
-  //     });
-  //   });
+  rightContainerTitle.textContent = "All Items";
 });
-
-// const deleteBtnListener = function () {
-//   for (let i = 0; i < defaultList.length; i++) {
-//     deleteBtns[i].addEventListener("click", function () {
-//       defaultList.splice(`${i}`, 1);
-//     });
-//   }
-// };
 
 // // // Local Storage Functions
 
