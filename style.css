@@ -92,6 +92,10 @@ html {
 
 .info-left-side {
   width: 79%;
+  /* display: block; */
+}
+.info-left-side span {
+  background-color: lawngreen;
 }
 
 .info-right-side {
@@ -104,6 +108,7 @@ html {
   float: right;
   width: 100%;
   margin-bottom: 1em;
+  margin-right: 0.5em;
 }
 
 .info-right-side button {
@@ -114,10 +119,12 @@ html {
   border: none;
   border-radius: 5px;
   background-color: red;
+  margin-right: 0.5em;
 }
 
 .todo-items-info p {
   margin-left: 1em;
+  font-size: 15px;
 }
 
 .todo-items-info select {
