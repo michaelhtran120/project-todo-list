@@ -1,15 +1,16 @@
+import { format } from "date-fns";
+
 //Factory Function => To do items
 
 const CreateToDo = (
   title = "Add title here",
   description = "Add details here",
-  dueDate = `${new Date().getFullYear()}-${
-    new Date().getMonth() + 1
-  }-${new Date().getDate()}`,
+  dueDate = format(new Date(), "yyyy-MM-dd"),
   priority = "low",
-  isComplete = "false"
+  isComplete = "false",
+  project = "None"
 ) => {
-  return { title, description, dueDate, priority, isComplete };
+  return { title, description, dueDate, priority, isComplete, project };
 };
 
 export { CreateToDo };

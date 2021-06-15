@@ -1,5 +1,5 @@
-const displayTodo = (array) => {
-  array.forEach((item) => {
+const displayTodo = (arr) => {
+  arr.forEach((item) => {
     const todoContainer = document.querySelector("#todos-container");
 
     const itemDetailElements = createDetailElements(item);
@@ -26,7 +26,10 @@ const displayTodo = (array) => {
 
     itemDetailElements.itemDetailLeft.append(
       itemDetailElements.itemDetailDesc,
-      itemDetailElements.itemPriority
+      itemDetailElements.itemPriorityLabel,
+      itemDetailElements.itemPriority,
+      itemDetailElements.itemProjectLabel,
+      itemDetailElements.itemProject
     );
 
     itemDetailElements.itemDetailRight.append(
@@ -40,6 +43,7 @@ const displayTodo = (array) => {
     itemSumElements.itemContainer.appendChild(
       itemDetailElements.itemDetailContainer
     );
+    itemSumElements.itemContainer.append(document.createElement("hr"));
 
     itemSumElements.itemDetailBtn.addEventListener("click", () => {
       itemDetailElements.itemDetailContainer.classList.toggle("hidden");
@@ -48,7 +52,14 @@ const displayTodo = (array) => {
     itemDetailElements.itemDate.addEventListener("change", () => {
       console.log("date changed");
       itemSumElements.itemDueDate.innerText = `Due Date: ${itemDetailElements.itemDate.value}`;
+      item.dueDate = itemDetailElements.itemDate.value;
+      console.log(item);
     });
+
+    // itemSumElements.itemDueDate.addEventListener("change", () => {
+    //   console.log(itemSumElements.itemDueDate);
+    //   //   item.dueDate = itemSumElements.itemDate;
+    // });
   });
 };
 
@@ -87,6 +98,12 @@ const createSummaryElements = (item) => {
   itemDueDate.innerText = `Due Date: ${item.dueDate}`;
   itemDetailBtn.innerText = "Details";
 
+  itemTitle.addEventListener("input", () => {
+    item.title = itemTitle.innerText;
+    console.log(item.title);
+    console.log(item);
+  });
+
   return {
     itemContainer,
     itemSummaryContainer,
@@ -107,6 +124,9 @@ const createDetailElements = (item) => {
   const deleteBtn = document.createElement("button");
   const itemDetailDesc = document.createElement("p");
   const itemPriority = document.createElement("select");
+  const itemPriorityLabel = document.createElement("label");
+  const itemProject = document.createElement("span");
+  const itemProjectLabel = document.createElement("label");
 
   const priorityArray = ["low", "medium", "high"];
 
@@ -118,13 +138,16 @@ const createDetailElements = (item) => {
   });
 
   itemDate.setAttribute("type", "date");
-  itemDate.setAttribute("value", item.dueDate);
+  //   itemDate.setAttribute("value", item.dueDate);
+  //   itemDate.value = item.dueDate;
   itemDetailDesc.setAttribute("contenteditable", true);
+  itemProject.setAttribute("contenteditable", true);
 
   itemDetailContainer.classList.add("todo-items-info", "hidden");
   itemDetailLeft.classList.add("info-left-side");
   itemDetailRight.classList.add("info-right-side");
   itemPriority.classList.add("priority-select");
+  deleteBtn.classList.add("delete-btn");
 
   if (item.priority === "low") {
     itemPriority.value = "low";
@@ -134,9 +157,24 @@ const createDetailElements = (item) => {
     itemPriority.value = "high";
   }
 
+  itemPriorityLabel.textContent = "Priority:";
+
   itemDetailDesc.innerText = item.description;
   deleteBtn.innerText = "Delete Item";
+  itemProject.textContent = item.project;
+  itemProjectLabel.textContent = "Project:";
 
+  itemDetailDesc.addEventListener("input", () => {
+    item.description = itemDetailDesc.innerText;
+  });
+
+  itemProject.addEventListener("input", () => {
+    item.project = itemProject.innerText;
+  });
+
+  itemPriority.addEventListener("change", () => {
+    item.priority = itemPriority.value;
+  });
   return {
     itemDetailContainer,
     itemDetailLeft,
@@ -145,6 +183,9 @@ const createDetailElements = (item) => {
     deleteBtn,
     itemDetailDesc,
     itemPriority,
+    itemPriorityLabel,
+    itemProject,
+    itemProjectLabel,
   };
 };
 
@@ -154,4 +195,4 @@ function removeAllChildNodes(parent) {
   }
 }
 
-export { displayTodo };
+export { displayTodo, removeAllChildNodes };
