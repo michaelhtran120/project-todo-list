@@ -236,5 +236,7 @@ function removeAllChildNodes(parent) {
     parent.removeChild(parent.firstChild);
   }
 }
+// let itemsFromLocalStorage = localStorage.getItem("itemsStorage");
+// defaultList = JSON.parse(itemsFromLocalStorage);
 
 export { displayTodo, removeAllChildNodes, defaultList };

@@ -21,8 +21,6 @@ import { format, addDays } from "date-fns";
 //   },
 // ];
 
-displayTodo(defaultList);
-
 const addItemBtn = document.querySelector("#add-todo-btn");
 const allBtn = document.querySelector("#all-btn");
 const todayBtn = document.querySelector("#today-btn");
@@ -65,21 +63,23 @@ tomorrowBtn.addEventListener("click", () => {
 addItemBtn.addEventListener("click", () => {
   const newItem = CreateToDo();
   defaultList.push(newItem);
-  //   saveListToLocalStorage();
   removeAllChildNodes(document.querySelector("#todos-container"));
   displayTodo(defaultList);
   console.log(defaultList);
   rightContainerTitle.textContent = "All Items";
 });
 
-// // // Local Storage Functions
+// // Local Storage Functions
 
 // const saveListToLocalStorage = () => {
-//   localStorage.setItem("allitems", defaultList);
+//   let itemsStorage = JSON.stringify(defaultList);
+//   localStorage.setItem("itemsStorage", itemsStorage);
 // };
 
-// const storedInput = localStorage.getItem("allitems");
+// window.addEventListener("beforeunload", function (e) {
+//   e.preventDefault();
+//   localStorage.removeItem("itemsStorage");
+//   saveListToLocalStorage();
+// });
 
-// if (defaultList) {
-//   defaultList = storedInput;
-// }
+displayTodo(defaultList);
