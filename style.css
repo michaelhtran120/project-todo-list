@@ -1,5 +1,6 @@
 :root {
   --dark-lavender: rgb(161, 161, 252);
+  --light-red: rgb(255, 95, 95);
 }
 
 html {
@@ -25,7 +26,7 @@ html {
   position: relative;
 }
 
-#lists-container {
+#projects-container {
   display: flex;
   flex-direction: column;
   width: 20%;
@@ -35,13 +36,17 @@ html {
   background-color: lavender;
 }
 
-#lists-container button {
+#projects-container button {
   text-align: left;
   font-size: 16px;
   padding: 1em 2em;
   border: none;
   background-color: lavender;
   cursor: pointer;
+}
+#custom-projects {
+  display: flex;
+  flex-direction: column;
 }
 
 #right-container {
@@ -77,9 +82,11 @@ html {
 
 .summary-left-side h3 {
   min-width: 2em;
+  max-height: 1.5em;
+  align-self: center;
 }
 .summary-left-side h3:hover {
-  border: 1px solid turquoise;
+  border: 1px solid var(--dark-lavender);
   border-radius: 5px;
 }
 
@@ -104,50 +111,50 @@ html {
 
 .todo-items-info {
   display: flex;
+  justify-content: space-between;
 }
 
 .info-left-side {
-  width: 79%;
-  /* display: block; */
-}
-.info-left-side span {
-  background-color: lawngreen;
+  width: 70%;
 }
 
-.info-right-side {
-  margin-top: 1em;
-  width: 21%;
-}
-.info-right-side input {
-  height: 2em;
-  align-self: center;
-  float: right;
-  width: 100%;
-  margin-bottom: 1em;
-  margin-right: 0.5em;
-}
-
-.info-right-side button {
-  height: 2em;
-  text-align: center;
-  float: right;
-  width: 100%;
-  border: none;
-  border-radius: 5px;
-  background-color: rgb(255, 95, 95);
-  margin-right: 0.5em;
-}
-
-.todo-items-info p {
-  margin-left: 1em;
-  font-size: 15px;
+.item-description {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 2px;
   min-width: 15px;
   max-width: 75%;
 }
 
-.todo-items-info p:hover {
-  border: 1px solid turquoise;
-  border-radius: 5px;
+.priority-label {
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.priority-select {
+  max-width: 6em;
+}
+.project-label {
+  margin-left: 1em;
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.project-name {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 2px;
+  min-width: 8px;
+  max-width: 30%;
+  height: 1.5em;
+  max-height: 1.5em;
+}
+
+.item-description:hover,
+.project-name:hover,
+.priority-select:hover {
+  border: 1px solid var(--dark-lavender);
+  border-radius: 3px;
 }
 
 .todo-items-info select {
@@ -159,6 +166,37 @@ html {
   cursor: pointer;
 }
 
+.project-label {
+  margin-left: 1em;
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info-right-side {
+  margin-top: 1em;
+  width: 21%;
+}
+.info-right-side input {
+  height: 2em;
+  align-self: center;
+  float: right;
+  width: 10em;
+  margin-bottom: 1em;
+  margin-right: 0.5em;
+}
+
+.info-right-side button {
+  height: 2em;
+  text-align: center;
+  float: right;
+  width: 8em;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(255, 95, 95);
+  margin-right: 0.5em;
+}
+
 .hidden {
   display: none;
   opacity: 0;
@@ -166,7 +204,7 @@ html {
 
 #add-todo-btn {
   position: absolute;
-  top: 2em;
+  top: 3em;
   right: 4em;
   font-size: 18px;
   border-radius: 5px;
