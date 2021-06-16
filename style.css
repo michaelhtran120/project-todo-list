@@ -30,10 +30,14 @@ html {
   display: flex;
   flex-direction: column;
   width: 20%;
-  height: 100vh;
+  height: 100%;
   position: relative;
   left: 0;
   background-color: lavender;
+}
+#default-projects {
+  display: flex;
+  flex-direction: column;
 }
 
 #projects-container button {
