@@ -298,7 +298,7 @@ function displayCustomProject(array) {
   });
 }
 
-let itemsFromLocalStorage = localStorage.getItem("itemsStorage");
-defaultList = JSON.parse(itemsFromLocalStorage);
-
+if (localStorage.getItem("itemsStorage") !== null) {
+  defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
+}
 export { displayTodo, removeAllChildNodes, defaultList, displayCustomProject };
