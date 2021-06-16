@@ -1,6 +1,23 @@
 import { format, addDays } from "date-fns";
 
-let defaultList = [];
+let defaultList = [
+  {
+    title: "Ex. Groceries",
+    description: "Buy item 1, item 2, item 3",
+    dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
+    priority: "high",
+    isCompleted: false,
+    project: "ex.shopping",
+  },
+  {
+    title: "Ex .Workout",
+    description: "3 sets of bicep, 3 sets of tricep",
+    dueDate: format(new Date(), "yyyy-MM-dd"),
+    priority: "medium",
+    isCompleted: true,
+    project: "ex.fitness",
+  },
+];
 const displayTodo = (arr) => {
   arr.forEach((item) => {
     const todoContainer = document.querySelector("#todos-container");
@@ -280,27 +297,27 @@ function displayCustomProject(array) {
   });
 }
 
-if (localStorage.getItem("itemsStorage") !== null) {
-  defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
-} else {
-  defaultList = [
-    {
-      title: "Ex. Groceries",
-      description: "Buy item 1, item 2, item 3",
-      dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
-      priority: "high",
-      isCompleted: false,
-      project: "ex.shopping",
-    },
-    {
-      title: "Ex .Workout",
-      description: "3 sets of bicep, 3 sets of tricep",
-      dueDate: format(new Date(), "yyyy-MM-dd"),
-      priority: "medium",
-      isCompleted: true,
-      project: "ex.fitness",
-    },
-  ];
-}
+// if (localStorage.getItem("itemsStorage") !== null) {
+//   defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
+// } else {
+//   defaultList = [
+//     {
+//       title: "Ex. Groceries",
+//       description: "Buy item 1, item 2, item 3",
+//       dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
+//       priority: "high",
+//       isCompleted: false,
+//       project: "ex.shopping",
+//     },
+//     {
+//       title: "Ex .Workout",
+//       description: "3 sets of bicep, 3 sets of tricep",
+//       dueDate: format(new Date(), "yyyy-MM-dd"),
+//       priority: "medium",
+//       isCompleted: true,
+//       project: "ex.fitness",
+//     },
+//   ];
+// }
 
 export { displayTodo, removeAllChildNodes, defaultList, displayCustomProject };
