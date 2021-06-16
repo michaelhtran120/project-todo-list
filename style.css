@@ -109,6 +109,8 @@ html {
   background-color: white;
 }
 
+/* detail info section */
+
 .todo-items-info {
   display: flex;
   justify-content: space-between;
