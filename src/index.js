@@ -50,18 +50,18 @@ addItemBtn.addEventListener("click", () => {
   displayCustomProject(defaultList);
 });
 
-// // Local Storage Functions
+// Local Storage Functions
 
-// const saveListToLocalStorage = () => {
-//   let itemsStorage = JSON.stringify(defaultList);
-//   localStorage.setItem("itemsStorage", itemsStorage);
-// };
+const saveListToLocalStorage = () => {
+  let itemsStorage = JSON.stringify(defaultList);
+  localStorage.setItem("itemsStorage", itemsStorage);
+};
 
-// window.addEventListener("beforeunload", function (e) {
-//   e.preventDefault();
-//   localStorage.removeItem("itemsStorage");
-//   saveListToLocalStorage();
-// });
+window.addEventListener("beforeunload", function (e) {
+  e.preventDefault();
+  localStorage.removeItem("itemsStorage");
+  saveListToLocalStorage();
+});
 
 displayTodo(defaultList);
 displayCustomProject(defaultList);
