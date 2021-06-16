@@ -2,20 +2,20 @@ import { format, addDays } from "date-fns";
 
 let defaultList = [
   {
-    title: "Groceries",
+    title: "Ex. Groceries",
     description: "Buy item 1, item 2, item 3",
     dueDate: format(addDays(new Date(), 1), "yyyy-MM-dd"),
     priority: "high",
     isCompleted: false,
-    project: "Shopping",
+    project: "ex.shopping",
   },
   {
-    title: "Workout",
+    title: "Ex .Workout",
     description: "3 sets of bicep, 3 sets of tricep",
     dueDate: format(new Date(), "yyyy-MM-dd"),
     priority: "medium",
     isCompleted: true,
-    project: "None",
+    project: "ex.fitness",
   },
 ];
 
@@ -68,13 +68,39 @@ const displayTodo = (arr) => {
 
     itemSumElements.itemDetailBtn.addEventListener("click", () => {
       itemDetailElements.itemDetailContainer.classList.toggle("hidden");
+
+      if (itemSumElements.itemDetailBtn.textContent === "Expand Details") {
+        itemSumElements.itemDetailBtn.textContent = "Close Details";
+      } else {
+        itemSumElements.itemDetailBtn.textContent = "Expand Details";
+      }
     });
 
     itemDetailElements.itemDate.addEventListener("change", () => {
-      console.log("date changed");
       itemSumElements.itemDueDate.innerText = `Due Date: ${itemDetailElements.itemDate.value}`;
       item.dueDate = itemDetailElements.itemDate.value;
-      console.log(item);
+    });
+
+    if (item.priority === "low") {
+      itemSumElements.itemDueDate.style.backgroundColor = "lawngreen";
+    }
+    if (item.priority === "medium") {
+      itemSumElements.itemDueDate.style.backgroundColor = "yellow";
+    }
+    if (item.priority === "high") {
+      itemSumElements.itemDueDate.style.backgroundColor = "var(--light-red)";
+    }
+
+    itemDetailElements.itemPriority.addEventListener("change", () => {
+      if (item.priority === "low") {
+        itemSumElements.itemDueDate.style.backgroundColor = "lawngreen";
+      }
+      if (item.priority === "medium") {
+        itemSumElements.itemDueDate.style.backgroundColor = "yellow";
+      }
+      if (item.priority === "high") {
+        itemSumElements.itemDueDate.style.backgroundColor = "var(--light-red)";
+      }
     });
   });
 };
@@ -112,12 +138,10 @@ const createSummaryElements = (item) => {
   itemTitle.innerText = `${item.title}`;
 
   itemDueDate.innerText = `Due Date: ${item.dueDate}`;
-  itemDetailBtn.innerText = "Details";
+  itemDetailBtn.innerText = "Expand Details";
 
   itemTitle.addEventListener("input", () => {
     item.title = itemTitle.innerText;
-    console.log(item.title);
-    console.log(item);
   });
 
   itemTitle.addEventListener("keydown", function (event) {
@@ -176,7 +200,11 @@ const createDetailElements = (item) => {
   itemDetailContainer.classList.add("todo-items-info", "hidden");
   itemDetailLeft.classList.add("info-left-side");
   itemDetailRight.classList.add("info-right-side");
+  itemDetailDesc.classList.add("item-description");
+  itemPriorityLabel.classList.add("priority-label");
   itemPriority.classList.add("priority-select");
+  itemProjectLabel.classList.add("project-label");
+  itemProject.classList.add("project-name");
   deleteBtn.classList.add("delete-btn");
 
   if (item.priority === "low") {
@@ -191,7 +219,7 @@ const createDetailElements = (item) => {
 
   itemDetailDesc.innerText = item.description;
   deleteBtn.innerText = "Delete Item";
-  itemProject.textContent = item.project;
+  itemProject.textContent = item.project.toLowerCase();
   itemProjectLabel.textContent = "Project:";
 
   itemDetailDesc.addEventListener("input", () => {
@@ -200,6 +228,14 @@ const createDetailElements = (item) => {
 
   itemProject.addEventListener("input", () => {
     item.project = itemProject.innerText;
+    removeAllChildNodes(document.querySelector("#custom-projects"));
+    displayCustomProject(defaultList);
+  });
+
+  itemProject.addEventListener("keydown", function (event) {
+    if (this.textContent.length === 15 || event.keyCode === 13) {
+      event.preventDefault();
+    }
   });
 
   itemPriority.addEventListener("change", () => {
@@ -207,9 +243,6 @@ const createDetailElements = (item) => {
   });
 
   deleteBtn.addEventListener("click", () => {
-    console.log(`delete ${item.title}`);
-    console.log(defaultList.indexOf(item));
-    console.log(defaultList);
     defaultList.splice(defaultList.indexOf(item), 1);
     removeAllChildNodes(document.querySelector("#todos-container"));
     displayTodo(defaultList);
@@ -236,7 +269,38 @@ function removeAllChildNodes(parent) {
     parent.removeChild(parent.firstChild);
   }
 }
+
+function displayCustomProject(array) {
+  const customProjectList = document.querySelector("#custom-projects");
+  const customBtnNamesList = Array.from(
+    document.querySelectorAll(".custom-project-btns")
+  ).map(function (e) {
+    return e.innerText;
+  });
+  array.forEach((item) => {
+    if (!customBtnNamesList.includes(item.project)) {
+      const projectBtn = document.createElement("button");
+      projectBtn.textContent = item.project.toLowerCase();
+      customBtnNamesList.push(item.project);
+      customProjectList.append(projectBtn);
+
+      projectBtn.addEventListener("click", () => {
+        const itemArray = defaultList.filter(function (obj) {
+          return obj.project === item.project;
+        });
+        removeAllChildNodes(document.querySelector("#todos-container"));
+        displayTodo(itemArray);
+        document.querySelector(
+          "#right-container-title"
+        ).textContent = `${item.project}`;
+      });
+    }
+  });
+}
+
+// function createNewProjectButton
+
 // let itemsFromLocalStorage = localStorage.getItem("itemsStorage");
 // defaultList = JSON.parse(itemsFromLocalStorage);
 
-export { displayTodo, removeAllChildNodes, defaultList };
+export { displayTodo, removeAllChildNodes, defaultList, displayCustomProject };

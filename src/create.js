@@ -8,9 +8,11 @@ const CreateToDo = (
   dueDate = format(new Date(), "yyyy-MM-dd"),
   priority = "low",
   isComplete = "false",
-  project = "None"
+  project = "Unlisted"
 ) => {
   return { title, description, dueDate, priority, isComplete, project };
 };
+
+function checkProjectExist() {}
 
 export { CreateToDo };
