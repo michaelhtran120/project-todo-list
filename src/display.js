@@ -281,7 +281,7 @@ function displayCustomProject(array) {
   });
 }
 
-if (localStorage.getItem("itemsStorage") !== null) {
+if ("itemsStorage" in localStorage) {
   defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
 }
 

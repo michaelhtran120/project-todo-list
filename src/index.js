@@ -63,7 +63,9 @@ window.addEventListener("beforeunload", function (e) {
   saveListToLocalStorage();
 });
 
-if (localStorage.getItem("itemsStorage") !== null) {
+if (defaultList === []) {
+  //do nothing
+} else {
   displayTodo(defaultList);
   displayCustomProject(defaultList);
 }
