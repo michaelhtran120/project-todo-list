@@ -50,6 +50,7 @@ const displayTodo = (arr) => {
 
     itemSumElements.itemDetailBtn.addEventListener("click", () => {
       itemDetailElements.itemDetailContainer.classList.toggle("hidden");
+      saveListToLocalStorage();
 
       if (itemSumElements.itemDetailBtn.textContent === "Expand Details") {
         itemSumElements.itemDetailBtn.textContent = "Close Details";
@@ -61,6 +62,7 @@ const displayTodo = (arr) => {
     itemDetailElements.itemDate.addEventListener("change", () => {
       itemSumElements.itemDueDate.innerText = `Due Date: ${itemDetailElements.itemDate.value}`;
       item.dueDate = itemDetailElements.itemDate.value;
+      saveListToLocalStorage();
     });
 
     if (item.priority === "low") {
@@ -124,6 +126,7 @@ const createSummaryElements = (item) => {
 
   itemTitle.addEventListener("input", () => {
     item.title = itemTitle.innerText;
+    saveListToLocalStorage();
   });
 
   itemTitle.addEventListener("keydown", function (event) {
@@ -135,8 +138,10 @@ const createSummaryElements = (item) => {
   itemCheckbox.addEventListener("change", () => {
     if (itemCheckbox.checked === false) {
       item.isCompleted = false;
+      saveListToLocalStorage();
     } else {
       item.isCompleted = true;
+      saveListToLocalStorage();
     }
   });
 
@@ -174,8 +179,6 @@ const createDetailElements = (item) => {
   });
 
   itemDate.setAttribute("type", "date");
-  //   itemDate.setAttribute("value", item.dueDate);
-  //   itemDate.value = item.dueDate;
   itemDetailDesc.setAttribute("contenteditable", true);
   itemProject.setAttribute("contenteditable", true);
 
@@ -206,12 +209,14 @@ const createDetailElements = (item) => {
 
   itemDetailDesc.addEventListener("input", () => {
     item.description = itemDetailDesc.innerText;
+    saveListToLocalStorage();
   });
 
   itemProject.addEventListener("input", () => {
     item.project = itemProject.innerText;
     removeAllChildNodes(document.querySelector("#custom-projects"));
     displayCustomProject(defaultList);
+    saveListToLocalStorage();
   });
 
   itemProject.addEventListener("keydown", function (event) {
@@ -222,12 +227,15 @@ const createDetailElements = (item) => {
 
   itemPriority.addEventListener("change", () => {
     item.priority = itemPriority.value;
+    saveListToLocalStorage();
   });
 
   deleteBtn.addEventListener("click", () => {
     defaultList.splice(defaultList.indexOf(item), 1);
     removeAllChildNodes(document.querySelector("#todos-container"));
     displayTodo(defaultList);
+    removeAllChildNodes(document.querySelector("#custom-projects"));
+    displayCustomProject(defaultList);
     saveListToLocalStorage();
 
     document.querySelector("#right-container-title").textContent = "All Items";
@@ -280,9 +288,5 @@ function displayCustomProject(array) {
     }
   });
 }
-
-// if ("itemsStorage" in localStorage) {
-//   defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
-// }
 
 export { displayTodo, removeAllChildNodes, displayCustomProject };
