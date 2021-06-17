@@ -1,4 +1,5 @@
 import { defaultList } from "./index.js";
+import { saveListToLocalStorage } from "./create.js";
 
 const displayTodo = (arr) => {
   arr.forEach((item) => {
@@ -227,6 +228,7 @@ const createDetailElements = (item) => {
     defaultList.splice(defaultList.indexOf(item), 1);
     removeAllChildNodes(document.querySelector("#todos-container"));
     displayTodo(defaultList);
+    saveListToLocalStorage();
 
     document.querySelector("#right-container-title").textContent = "All Items";
   });

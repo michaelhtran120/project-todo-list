@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-
+import { defaultList } from "./index.js";
 //Factory Function => To do items
 
 const CreateToDo = (
@@ -13,6 +13,9 @@ const CreateToDo = (
   return { title, description, dueDate, priority, isComplete, project };
 };
 
-function checkProjectExist() {}
+const saveListToLocalStorage = () => {
+  let itemsStorage = JSON.stringify(defaultList);
+  localStorage.setItem("itemsStorage", itemsStorage);
+};
 
-export { CreateToDo };
+export { CreateToDo, saveListToLocalStorage };

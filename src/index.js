@@ -1,4 +1,4 @@
-import { CreateToDo } from "./create.js";
+import { CreateToDo, saveListToLocalStorage } from "./create.js";
 import {
   displayTodo,
   removeAllChildNodes,
@@ -6,7 +6,16 @@ import {
 } from "./display.js";
 import { format, addDays } from "date-fns";
 
-let defaultList = [];
+let defaultList = [
+  {
+    title: "Demo item task",
+    description: "Add details here : Demo description",
+    dueDate: format(new Date(), "yyyy-MM-dd"),
+    priority: "low",
+    isComplete: "true",
+    project: "demo",
+  },
+];
 
 const addItemBtn = document.querySelector("#add-todo-btn");
 const allBtn = document.querySelector("#all-btn");
@@ -49,20 +58,21 @@ addItemBtn.addEventListener("click", () => {
   rightContainerTitle.textContent = "All Items";
   removeAllChildNodes(document.querySelector("#custom-projects"));
   displayCustomProject(defaultList);
+  saveListToLocalStorage();
 });
 
 // Local Storage Functions
 
-const saveListToLocalStorage = () => {
-  let itemsStorage = JSON.stringify(defaultList);
-  localStorage.setItem("itemsStorage", itemsStorage);
-};
+// const saveListToLocalStorage = () => {
+//   let itemsStorage = JSON.stringify(defaultList);
+//   localStorage.setItem("itemsStorage", itemsStorage);
+// };
 
-window.addEventListener("beforeunload", function (e) {
-  e.preventDefault();
-  localStorage.removeItem("itemsStorage");
-  saveListToLocalStorage();
-});
+// window.addEventListener("beforeunload", function (e) {
+//   e.preventDefault();
+//   localStorage.removeItem("itemsStorage");
+//   saveListToLocalStorage();
+// });
 
 if ("itemsStorage" in localStorage) {
   defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
