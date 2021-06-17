@@ -7,14 +7,14 @@ import {
 import { format, addDays } from "date-fns";
 
 let defaultList = [
-  {
-    title: "Demo item task",
-    description: "Add details here : Demo description",
-    dueDate: format(new Date(), "yyyy-MM-dd"),
-    priority: "low",
-    isComplete: "true",
-    project: "demo",
-  },
+  // {
+  //   title: "Demo item task",
+  //   description: "Add details here : Demo description",
+  //   dueDate: format(new Date(), "yyyy-MM-dd"),
+  //   priority: "low",
+  //   isComplete: "true",
+  //   project: "demo",
+  // },
 ];
 
 const addItemBtn = document.querySelector("#add-todo-btn");
@@ -76,9 +76,8 @@ addItemBtn.addEventListener("click", () => {
 
 if ("itemsStorage" in localStorage) {
   defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
+  displayTodo(defaultList);
+  displayCustomProject(defaultList);
 }
-
-displayTodo(defaultList);
-displayCustomProject(defaultList);
 
 export { defaultList };
