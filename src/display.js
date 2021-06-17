@@ -1,6 +1,4 @@
-import { format, addDays } from "date-fns";
-
-let defaultList = [];
+import { defaultList } from "./index.js";
 
 const displayTodo = (arr) => {
   arr.forEach((item) => {
@@ -281,8 +279,8 @@ function displayCustomProject(array) {
   });
 }
 
-if ("itemsStorage" in localStorage) {
-  defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
-}
+// if ("itemsStorage" in localStorage) {
+//   defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
+// }
 
-export { displayTodo, removeAllChildNodes, defaultList, displayCustomProject };
+export { displayTodo, removeAllChildNodes, displayCustomProject };

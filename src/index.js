@@ -1,11 +1,12 @@
 import { CreateToDo } from "./create.js";
 import {
-  defaultList,
   displayTodo,
   removeAllChildNodes,
   displayCustomProject,
 } from "./display.js";
 import { format, addDays } from "date-fns";
+
+let defaultList = [];
 
 const addItemBtn = document.querySelector("#add-todo-btn");
 const allBtn = document.querySelector("#all-btn");
@@ -63,9 +64,11 @@ window.addEventListener("beforeunload", function (e) {
   saveListToLocalStorage();
 });
 
-if (defaultList === []) {
-  //do nothing
-} else {
-  displayTodo(defaultList);
-  displayCustomProject(defaultList);
+if ("itemsStorage" in localStorage) {
+  defaultList = JSON.parse(localStorage.getItem("itemsStorage"));
 }
+
+displayTodo(defaultList);
+displayCustomProject(defaultList);
+
+export { defaultList };
